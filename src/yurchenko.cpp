@@ -105,7 +105,7 @@ namespace yurchenko
 		\param y an integer argument
 		\param relative an boolean
 	*/
-	void MouseMove(int x, int y, bool relative)
+	void MouseMove(int x, int y, bool relative = false)
 	{
 		#ifdef __linux__
 		Display *display = XOpenDisplay(NULL);
