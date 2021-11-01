@@ -24,8 +24,8 @@ namespace yurchenko
 		int screen = DefaultScreen(display);
 		int win_x, win_y, root_x, root_y = 0;
 		Window child_win, root_win;
-    	XQueryPointer(display, XRootWindow(display, screen), &child_win, &root_win, &root_x, &root_y, &win_x, &win_y, 0);
-    	*x = root_x;
+		XQueryPointer(display, XRootWindow(display, screen), &child_win, &root_win, &root_x, &root_y, &win_x, &win_y, 0);
+		*x = root_x;
     	*y = root_y;
 		#elif defined(_WIN32)
 		POINT point;
