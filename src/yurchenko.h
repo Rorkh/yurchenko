@@ -10,6 +10,11 @@
 
 namespace yurchenko
 {
+	#include "keys.h"
+
+	void KeyDown(int key);
+	void KeyUp(int key);
+
 	void GetMousePosition(int *x, int *y);
 	bool IsKeyPressed(int key);
 

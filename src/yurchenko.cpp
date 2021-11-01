@@ -12,6 +12,50 @@ void SimulateMousePress(UINT Msg, WPARAM wParam)
 
 namespace yurchenko
 {
+	//! Simulates key down event
+	/*!
+		\param key an integer argument
+	*/
+	void KeyDown(int key)
+	{
+		#ifdef __linux__
+		Display *display = XOpenDisplay(NULL);
+		unsigned char keycode = XKeysymToKeycode(display, key);
+		XTestFakeKeyEvent(display, keycode, true, 0)
+		XFlush(display);
+		XCloseDisplay(display);
+		#elif defined(_WIN32)
+		INPUT input;
+		input.type = 1;
+		input.ki.wVk = 0;
+		input.ki.wScan = MapVirtualKeyW(key, 0);
+		input.ki.dwFlags = 0 | KEYEVENTF_SCANCODE;
+		SendInput(1, &input, sizeof(input));
+		#endif
+	}
+
+	//! Simulates key up event
+	/*!
+		\param key an integer argument
+	*/
+	void KeyUp(int key)
+	{
+		#ifdef __linux__
+		Display *display = XOpenDisplay(NULL);
+		unsigned char keycode = XKeysymToKeycode(display, key);
+		XTestFakeKeyEvent(display, keycode, false, 0)
+		XFlush(display);
+		XCloseDisplay(display);
+		#elif defined(_WIN32)
+		INPUT input;
+		input.type = 1;
+		input.ki.wVk = 0;
+		input.ki.wScan = MapVirtualKeyW(key, 0);
+		input.ki.dwFlags = KEYEVENTF_KEYUP | KEYEVENTF_SCANCODE;
+		SendInput(1, &input, sizeof(input));
+		#endif
+	}
+
 	//! Get's mouse position
 	/*!
 		\param x an integer pointer argument
