@@ -1,5 +1,4 @@
-#include "src/yurchenko.h"
-
+#include "../src/yurchenko.h"
 #include <iostream>
 
 int main()
