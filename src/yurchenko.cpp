@@ -12,6 +12,11 @@ void SimulateMousePress(UINT Msg, WPARAM wParam)
 
 namespace yurchenko
 {
+	//! Get's mouse position
+	/*!
+		\param x an integer pointer argument
+		\param y an integer pointer argument
+	*/
 	void GetMousePosition(int *x, int *y)
 	{
 		#ifdef __linux__
@@ -30,6 +35,10 @@ namespace yurchenko
 		#endif
 	}
 
+	//! Checks if key pressed
+	/*!
+		\param key an integer argument
+	*/
 	bool IsKeyPressed(int key)
 	{
 		#ifdef __linux__
@@ -46,6 +55,12 @@ namespace yurchenko
 		#endif
 	}
 
+	//! Moves mouse
+	/*!
+		\param x an integer argument
+		\param y an integer argument
+		\param relative an boolean
+	*/
 	void MouseMove(int x, int y, bool relative)
 	{
 		#ifdef __linux__
@@ -64,6 +79,10 @@ namespace yurchenko
 		#endif
 	}
 
+	//! Simulates mouse wheel event
+	/*!
+		\param amount an integer argument
+	*/
 	void MouseWheel(int amount)
 	{
 		#ifdef __linux__
@@ -76,6 +95,7 @@ namespace yurchenko
 		#endif
 	}
 
+	//! Simulates left mouse down event
 	void LeftMouseDown()
 	{
 		#ifdef __linux__
@@ -88,6 +108,7 @@ namespace yurchenko
 		#endif
 	}
 
+	//! Simulates left mouse up event
 	void LeftMouseUp()
 	{
 		#ifdef __linux__
@@ -100,6 +121,7 @@ namespace yurchenko
 		#endif
 	}
 
+	//! Simulates right mouse down event
 	void RightMouseDown()
 	{
 		#ifdef __linux__
@@ -112,6 +134,7 @@ namespace yurchenko
 		#endif
 	}
 
+	//! Simulates left mouse up event
 	void RightMouseUp()
 	{
 		#ifdef __linux__
