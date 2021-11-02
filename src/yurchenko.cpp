@@ -1,13 +1,13 @@
 #include "yurchenko.h"
 
 #ifdef _WIN32
-void SimulateMousePress(UINT Msg, WPARAM wParam)
-{
-	POINT pos_cursor;
-	GetCursorPos(&pos_cursor);
-	HWND window = WindowFromPoint(pos_cursor);
-	SendMessage(window, Msg, wParam, MAKELPARAM(pos_cursor.x, pos_cursor.y));
-}
+	void SimulateMousePress(UINT Msg, WPARAM wParam)
+	{
+		POINT pos_cursor;
+		GetCursorPos(&pos_cursor);
+		HWND window = WindowFromPoint(pos_cursor);
+		SendMessage(window, Msg, wParam, MAKELPARAM(pos_cursor.x, pos_cursor.y));
+	}
 #endif
 
 namespace yurchenko
@@ -19,18 +19,18 @@ namespace yurchenko
 	void KeyDown(int key)
 	{
 		#ifdef __linux__
-		Display *display = XOpenDisplay(NULL);
-		unsigned char keycode = XKeysymToKeycode(display, key);
-		XTestFakeKeyEvent(display, keycode, true, 0)
-		XFlush(display);
-		XCloseDisplay(display);
+			Display *display = XOpenDisplay(NULL);
+			unsigned char keycode = XKeysymToKeycode(display, key);
+			XTestFakeKeyEvent(display, keycode, true, 0)
+			XFlush(display);
+			XCloseDisplay(display);
 		#elif defined(_WIN32)
-		INPUT input;
-		input.type = 1;
-		input.ki.wVk = 0;
-		input.ki.wScan = MapVirtualKeyW(key, 0);
-		input.ki.dwFlags = 0 | KEYEVENTF_SCANCODE;
-		SendInput(1, &input, sizeof(input));
+			INPUT input;
+			input.type = 1;
+			input.ki.wVk = 0;
+			input.ki.wScan = MapVirtualKeyW(key, 0);
+			input.ki.dwFlags = 0 | KEYEVENTF_SCANCODE;
+			SendInput(1, &input, sizeof(input));
 		#endif
 	}
 
@@ -41,18 +41,18 @@ namespace yurchenko
 	void KeyUp(int key)
 	{
 		#ifdef __linux__
-		Display *display = XOpenDisplay(NULL);
-		unsigned char keycode = XKeysymToKeycode(display, key);
-		XTestFakeKeyEvent(display, keycode, false, 0)
-		XFlush(display);
-		XCloseDisplay(display);
+			Display *display = XOpenDisplay(NULL);
+			unsigned char keycode = XKeysymToKeycode(display, key);
+			XTestFakeKeyEvent(display, keycode, false, 0)
+			XFlush(display);
+			XCloseDisplay(display);
 		#elif defined(_WIN32)
-		INPUT input;
-		input.type = 1;
-		input.ki.wVk = 0;
-		input.ki.wScan = MapVirtualKeyW(key, 0);
-		input.ki.dwFlags = KEYEVENTF_KEYUP | KEYEVENTF_SCANCODE;
-		SendInput(1, &input, sizeof(input));
+			INPUT input;
+			input.type = 1;
+			input.ki.wVk = 0;
+			input.ki.wScan = MapVirtualKeyW(key, 0);
+			input.ki.dwFlags = KEYEVENTF_KEYUP | KEYEVENTF_SCANCODE;
+			SendInput(1, &input, sizeof(input));
 		#endif
 	}
 
@@ -64,18 +64,18 @@ namespace yurchenko
 	void GetMousePosition(int *x, int *y)
 	{
 		#ifdef __linux__
-		Display *display = XOpenDisplay(NULL);
-		int screen = DefaultScreen(display);
-		int win_x, win_y, root_x, root_y = 0;
-		Window child_win, root_win;
-		XQueryPointer(display, XRootWindow(display, screen), &child_win, &root_win, &root_x, &root_y, &win_x, &win_y, 0);
-		*x = root_x;
-    	*y = root_y;
+			Display *display = XOpenDisplay(NULL);
+			int screen = DefaultScreen(display);
+			int win_x, win_y, root_x, root_y = 0;
+			Window child_win, root_win;
+			XQueryPointer(display, XRootWindow(display, screen), &child_win, &root_win, &root_x, &root_y, &win_x, &win_y, 0);
+			*x = root_x;
+	    	*y = root_y;
 		#elif defined(_WIN32)
-		POINT point;
-		GetCursorPos(&point);
-		*x = point.x;
-		*y = point.y;
+			POINT point;
+			GetCursorPos(&point);
+			*x = point.x;
+			*y = point.y;
 		#endif
 	}
 
@@ -86,16 +86,16 @@ namespace yurchenko
 	bool IsKeyPressed(int key)
 	{
 		#ifdef __linux__
-		Display *dpy = XOpenDisplay(NULL);
-		char keys_return[32];
-		XQueryKeymap(dpy, keys_return);
-		KeyCode kc2 = XKeysymToKeycode(dpy, key);
-		bool isPressed = !!(keys_return[kc2 >> 3] & (1 << (kc2 & 7)));
-		XCloseDisplay(dpy);
-		return isPressed;
+			Display *dpy = XOpenDisplay(NULL);
+			char keys_return[32];
+			XQueryKeymap(dpy, keys_return);
+			KeyCode kc2 = XKeysymToKeycode(dpy, key);
+			bool isPressed = !!(keys_return[kc2 >> 3] & (1 << (kc2 & 7)));
+			XCloseDisplay(dpy);
+			return isPressed;
 		#elif defined(_WIN32)
-		SHORT pressed = GetAsyncKeyState(key);
-		return (1 << 15) & pressed;
+			SHORT pressed = GetAsyncKeyState(key);
+			return (1 << 15) & pressed;
 		#endif
 	}
 
@@ -108,25 +108,25 @@ namespace yurchenko
 	void MouseMove(int x, int y, bool relative = false)
 	{
 		#ifdef __linux__
-		Display *display = XOpenDisplay(NULL);
-		if (relative)
-		{
-			XTestFakeRelativeMotionEvent(display, 0, x, y, 0);
-		} 
-		else 
-		{
-			XTestFakeMotionEvent(display, 0, x, y, 0);
-		}
-		XFlush(display);
-		XCloseDisplay(display);
+			Display *display = XOpenDisplay(NULL);
+			if (relative)
+			{
+				XTestFakeRelativeMotionEvent(display, 0, x, y, 0);
+			} 
+			else 
+			{
+				XTestFakeMotionEvent(display, 0, x, y, 0);
+			}
+			XFlush(display);
+			XCloseDisplay(display);
 		#elif defined(_WIN32)
-		INPUT input;
-		input.type = INPUT_MOUSE;
-		input.mi.dx = x;
-		input.mi.dy = y;
-		input.mi.mouseData = 0;
-		input.mi.dwFlags = relative ? MOUSEEVENTF_MOVE : (MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE);
-		SendInput(1, &input, sizeof(input));
+			INPUT input;
+			input.type = INPUT_MOUSE;
+			input.mi.dx = x;
+			input.mi.dy = y;
+			input.mi.mouseData = 0;
+			input.mi.dwFlags = relative ? MOUSEEVENTF_MOVE : (MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE);
+			SendInput(1, &input, sizeof(input));
 		#endif
 	}
 
@@ -137,29 +137,29 @@ namespace yurchenko
 	void MouseWheel(int amount)
 	{
 		#ifdef __linux__
-		Display *display = XOpenDisplay(NULL);
-		if (amount < 0)
-		{
-			for(int i = 0; i < abs(amount) && i < 5; i++) {
-				XTestFakeButtonEvent(display, 5, true, 0);
-				XTestFakeButtonEvent(display, 5, false, 0);
+			Display *display = XOpenDisplay(NULL);
+			if (amount < 0)
+			{
+				for(int i = 0; i < abs(amount) && i < 5; i++) {
+					XTestFakeButtonEvent(display, 5, true, 0);
+					XTestFakeButtonEvent(display, 5, false, 0);
+				}
 			}
-		}
-		else if (amount > 0)
-		{
-			for(int i = 0; i < abs(amount) && i < 5; i++) {
-				XTestFakeButtonEvent(display, 4, true, 0);
-				XTestFakeButtonEvent(display, 4, false, 0);
+			else if (amount > 0)
+			{
+				for(int i = 0; i < abs(amount) && i < 5; i++) {
+					XTestFakeButtonEvent(display, 4, true, 0);
+					XTestFakeButtonEvent(display, 4, false, 0);
+				}
 			}
-		}
-		XFlush(display);
-		XCloseDisplay(display);
+			XFlush(display);
+			XCloseDisplay(display);
 		#elif defined(_WIN32)
-		INPUT input;
-		input.type = INPUT_MOUSE;
-		input.mi.mouseData = amount;
-		input.mi.dwFlags = MOUSEEVENTF_WHEEL;
-		SendInput(1, &input, sizeof(input));
+			INPUT input;
+			input.type = INPUT_MOUSE;
+			input.mi.mouseData = amount;
+			input.mi.dwFlags = MOUSEEVENTF_WHEEL;
+			SendInput(1, &input, sizeof(input));
 		#endif
 	}
 
@@ -167,12 +167,12 @@ namespace yurchenko
 	void LeftMouseDown()
 	{
 		#ifdef __linux__
-		Display *display = XOpenDisplay(NULL);
-		XTestFakeButtonEvent(display, 1, true, 0);
-		XFlush(display);
-		XCloseDisplay(display);
+			Display *display = XOpenDisplay(NULL);
+			XTestFakeButtonEvent(display, 1, true, 0);
+			XFlush(display);
+			XCloseDisplay(display);
 		#elif defined(_WIN32)
-		SimulateMousePress(WM_LBUTTONDOWN, MK_LBUTTON);
+			SimulateMousePress(WM_LBUTTONDOWN, MK_LBUTTON);
 		#endif
 	}
 
@@ -180,12 +180,12 @@ namespace yurchenko
 	void LeftMouseUp()
 	{
 		#ifdef __linux__
-		Display *display = XOpenDisplay(NULL);
-		XTestFakeButtonEvent(display, 1, false, 0);
-		XFlush(display);
-		XCloseDisplay(display);
+			Display *display = XOpenDisplay(NULL);
+			XTestFakeButtonEvent(display, 1, false, 0);
+			XFlush(display);
+			XCloseDisplay(display);
 		#elif defined(_WIN32)
-		SimulateMousePress(WM_LBUTTONUP, 0);
+			SimulateMousePress(WM_LBUTTONUP, 0);
 		#endif
 	}
 
@@ -193,12 +193,12 @@ namespace yurchenko
 	void RightMouseDown()
 	{
 		#ifdef __linux__
-		Display *display = XOpenDisplay(NULL);
-		XTestFakeButtonEvent(display, 3, true, 0);
-		XFlush(display);
-		XCloseDisplay(display);
+			Display *display = XOpenDisplay(NULL);
+			XTestFakeButtonEvent(display, 3, true, 0);
+			XFlush(display);
+			XCloseDisplay(display);
 		#elif defined(_WIN32)
-		SimulateMousePress(WM_RBUTTONDOWN, MK_RBUTTON);
+			SimulateMousePress(WM_RBUTTONDOWN, MK_RBUTTON);
 		#endif
 	}
 
@@ -206,12 +206,12 @@ namespace yurchenko
 	void RightMouseUp()
 	{
 		#ifdef __linux__
-		Display *display = XOpenDisplay(NULL);
-		XTestFakeButtonEvent(display, 3, false, 0);
-		XFlush(display);
-		XCloseDisplay(display);
+			Display *display = XOpenDisplay(NULL);
+			XTestFakeButtonEvent(display, 3, false, 0);
+			XFlush(display);
+			XCloseDisplay(display);
 		#elif defined(_WIN32)
-		SimulateMousePress(WM_RBUTTONUP, 0);
+			SimulateMousePress(WM_RBUTTONUP, 0);
 		#endif
 	}
 }
