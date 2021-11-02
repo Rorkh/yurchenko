@@ -137,6 +137,23 @@ namespace yurchenko
 	void MouseWheel(int amount)
 	{
 		#ifdef __linux__
+		Display *display = XOpenDisplay(NULL);
+		if (amount < 0)
+		{
+			for(int i = 0; i < abs(amount) && i < 5; i++) {
+				XTestFakeButtonEvent(display, 5, true, 0);
+				XTestFakeButtonEvent(display, 5, false, 0);
+			}
+		}
+		else if (amount > 0)
+		{
+			for(int i = 0; i < abs(amount) && i < 5; i++) {
+				XTestFakeButtonEvent(display, 4, true, 0);
+				XTestFakeButtonEvent(display, 4, false, 0);
+			}
+		}
+		XFlush(display);
+		XCloseDisplay(display);
 		#elif defined(_WIN32)
 		INPUT input;
 		input.type = INPUT_MOUSE;
