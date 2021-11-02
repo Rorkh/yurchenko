@@ -109,7 +109,14 @@ namespace yurchenko
 	{
 		#ifdef __linux__
 		Display *display = XOpenDisplay(NULL);
-		XTestFakeMotionEvent(display, 0, x, y, 0);
+		if (relative)
+		{
+			XTestFakeRelativeMotionEvent(display, 0, x, y, 0);
+		} 
+		else 
+		{
+			XTestFakeMotionEvent(display, 0, x, y, 0);
+		}
 		XFlush(display);
 		XCloseDisplay(display);
 		#elif defined(_WIN32)
