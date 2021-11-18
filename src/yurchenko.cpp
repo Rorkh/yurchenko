@@ -105,18 +105,11 @@ namespace yurchenko
 		\param y an integer argument
 		\param relative an boolean
 	*/
-	void MouseMove(int x, int y, bool relative = false)
+	void MouseMove(int x, int y)
 	{
 		#ifdef __linux__
 			Display *display = XOpenDisplay(NULL);
-			if (relative)
-			{
-				XTestFakeRelativeMotionEvent(display, 0, x, y, 0);
-			} 
-			else 
-			{
-				XTestFakeMotionEvent(display, 0, x, y, 0);
-			}
+			XTestFakeMotionEvent(display, 0, x, y, 0);
 			XFlush(display);
 			XCloseDisplay(display);
 		#elif defined(_WIN32)
@@ -125,7 +118,30 @@ namespace yurchenko
 			input.mi.dx = x;
 			input.mi.dy = y;
 			input.mi.mouseData = 0;
-			input.mi.dwFlags = relative ? MOUSEEVENTF_MOVE : (MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE);
+			input.mi.dwFlags = MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE;
+			SendInput(1, &input, sizeof(input));
+		#endif
+	}
+	
+	//! Moves mouse relatively
+	/*!
+		\param x an integer argument
+		\param y an integer argument
+	*/
+	void RelativeMouseMove(int x, int y)
+	{
+		#ifdef __linux__
+			Display *display = XOpenDisplay(NULL);
+			XTestFakeRelativeMotionEvent(display, 0, x, y, 0);
+			XFlush(display);
+			XCloseDisplay(display);
+		#elif defined(_WIN32)
+			INPUT input;
+			input.type = INPUT_MOUSE;
+			input.mi.dx = x;
+			input.mi.dy = y;
+			input.mi.mouseData = 0;
+			input.mi.dwFlags = MOUSEEVENTF_MOVE;
 			SendInput(1, &input, sizeof(input));
 		#endif
 	}
