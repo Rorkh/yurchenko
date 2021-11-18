@@ -31,6 +31,11 @@ namespace yurchenko
 			input.ki.wScan = MapVirtualKeyW(key, 0);
 			input.ki.dwFlags = 0 | KEYEVENTF_SCANCODE;
 			SendInput(1, &input, sizeof(input));
+		#elif defined(__APPLE__)
+			CGEventSourceRef src = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
+			CGEventRef evt = CGEventCreateKeyboardEvent(src, (CGKeyCode) key, true);
+			CGEventPost (kCGHIDEventTap, evt);
+			CFRelease (evt); CFRelease (src);
 		#endif
 	}
 
@@ -53,6 +58,11 @@ namespace yurchenko
 			input.ki.wScan = MapVirtualKeyW(key, 0);
 			input.ki.dwFlags = KEYEVENTF_KEYUP | KEYEVENTF_SCANCODE;
 			SendInput(1, &input, sizeof(input));
+		#elif defined(__APPLE__)
+			CGEventSourceRef src = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
+			CGEventRef evt = CGEventCreateKeyboardEvent(src, (CGKeyCode) key, false);
+			CGEventPost (kCGHIDEventTap, evt);
+			CFRelease (evt); CFRelease (src);
 		#endif
 	}
 
@@ -76,6 +86,12 @@ namespace yurchenko
 			GetCursorPos(&point);
 			*x = point.x;
 			*y = point.y;
+		#elif defined(__LINUX__)
+			CGEventRef event = CGEventCreate(NULL);
+			CGPoint cursor = CGEventGetLocation(event);
+			CFRelease(event);
+			*x = cursor.x;
+			*y = cursor.y;
 		#endif
 	}
 
