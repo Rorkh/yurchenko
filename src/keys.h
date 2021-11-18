@@ -127,5 +127,69 @@ namespace keys {
 		inline constexpr int KEY_X = 0x058;
 		inline constexpr int KEY_Y = 0x059;
 		inline constexpr int KEY_Z = 0x05a;
+	#elif defined(__APPLE)
+		inline constexpr int NUMPAD_0 = 0x52;
+		inline constexpr int NUMPAD_1 = 0x53;
+		inline constexpr int NUMPAD_2 = 0x54;
+		inline constexpr int NUMPAD_3 = 0x55;
+		inline constexpr int NUMPAD_4 = 0x56;
+		inline constexpr int NUMPAD_5 = 0x57;
+		inline constexpr int NUMPAD_6 = 0x58;
+		inline constexpr int NUMPAD_7 = 0x59;
+		inline constexpr int NUMPAD_8 = 0x5B;
+		inline constexpr int NUMPAD_9 = 0x5C;
+
+		inline constexpr int F1 = 0x7A;
+		inline constexpr int F2 = 0x78;
+		inline constexpr int F3 = 0x63;
+		inline constexpr int F4 = 0x76;
+		inline constexpr int F5 = 0x60;
+		inline constexpr int F6 = 0x61;
+		inline constexpr int F7 = 0x62;
+		inline constexpr int F8 = 0x64;
+		inline constexpr int F9 = 0x65;
+		inline constexpr int F10 = 0x6D;
+		inline constexpr int F11 = 0x67;
+
+		inline constexpr int RSHIFT = 0x3C;
+		inline constexpr int LSHIFT = 0x38;
+
+		inline constexpr int KEY_0 = 0x1D;
+		inline constexpr int KEY_1 = 0x12;
+		inline constexpr int KEY_2 = 0x13;
+		inline constexpr int KEY_3 = 0x14;
+		inline constexpr int KEY_4 = 0x15;
+		inline constexpr int KEY_5 = 0x17;
+		inline constexpr int KEY_6 = 0x16;
+		inline constexpr int KEY_7 = 0x1A;
+		inline constexpr int KEY_8 = 0x1C;
+		inline constexpr int KEY_9 = 0x19;
+
+		inline constexpr int KEY_A = 0x00;
+		inline constexpr int KEY_B = 0x0B;
+		inline constexpr int KEY_C = 0x08;
+		inline constexpr int KEY_D = 0x02;
+		inline constexpr int KEY_E = 0x0E;
+		inline constexpr int KEY_F = 0x03;
+		inline constexpr int KEY_G = 0x05;
+		inline constexpr int KEY_H = 0x04;
+		inline constexpr int KEY_I = 0x22;
+		inline constexpr int KEY_J = 0x26;
+		inline constexpr int KEY_K = 0x28;
+		inline constexpr int KEY_L = 0x25;
+		inline constexpr int KEY_M = 0x2E;
+		inline constexpr int KEY_N = 0x2D;
+		inline constexpr int KEY_O = 0x1F;
+		inline constexpr int KEY_P = 0x23;
+		inline constexpr int KEY_Q = 0x0C;
+		inline constexpr int KEY_R = 0x0F;
+		inline constexpr int KEY_S = 0x01;
+		inline constexpr int KEY_T = 0x11;
+		inline constexpr int KEY_U = 0x20;
+		inline constexpr int KEY_V = 0x09;
+		inline constexpr int KEY_W = 0x0D;
+		inline constexpr int KEY_X = 0x07;
+		inline constexpr int KEY_Y = 0x10;
+		inline constexpr int KEY_Z = 0x06;
 	#endif
 }
