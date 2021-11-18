@@ -127,7 +127,7 @@ namespace keys {
 		inline constexpr int KEY_X = 0x058;
 		inline constexpr int KEY_Y = 0x059;
 		inline constexpr int KEY_Z = 0x05a;
-	#elif defined(__APPLE)
+	#elif defined(__APPLE__)
 		inline constexpr int NUMPAD_0 = 0x52;
 		inline constexpr int NUMPAD_1 = 0x53;
 		inline constexpr int NUMPAD_2 = 0x54;
