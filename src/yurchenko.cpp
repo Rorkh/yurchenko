@@ -1,4 +1,4 @@
-#include "yurchenko.h"
+#include "yurchenko.hpp"
 
 #ifdef _WIN32
 	void SimulateMousePress(UINT Msg, WPARAM wParam)
