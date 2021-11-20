@@ -12,7 +12,7 @@
 
 namespace yurchenko
 {
-	#include "keys.hpp"
+	#include "const/keys.hpp"
 
 	void KeyDown(int key);
 	void KeyUp(int key);
