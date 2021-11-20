@@ -1,13 +1,9 @@
 #ifdef _WIN32
-	#include <windows.h>
-	#include <WinUser.h>
+	#include "os/windows.hpp"
 #elif defined(__linux__)
-	#include <X11/Xlib.h>
-	#include <X11/Xutil.h>
-	#include <X11/extensions/XTest.h>
-	#include <X11/keysym.h>
+	#include "os/linux.hpp"
 #elif defined(__APPLE__)
-	#include <ApplicationServices/ApplicationServices.h>
+	#include "os/macos.hpp"
 #endif
 
 namespace yurchenko
